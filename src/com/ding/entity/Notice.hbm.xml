@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ding.entity">
+    <class name="com.ding.entity.Notice" table="t_gonggao">
+        <id name="id" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="biaoti" column="biaoti"></property>
+        <property name="neirong" column="neirong"></property>
+        <property name="time" column="time"></property>
+        <property name="state" column="state"></property>
+     </class>
+</hibernate-mapping>

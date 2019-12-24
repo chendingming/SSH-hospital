@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ding.entity">
+    <class name="com.ding.entity.Order" table="t_order">
+        <id name="order_id" column="order_id">
+            <generator class="native"></generator>
+        </id>
+        <property name="doctor_name" column="doctor_name"></property>
+        <property name="user_realname" column="user_realname"></property>
+        <property name="date" column="date"></property>
+        <property name="sickness" column="sickness"></property>
+        <property name="user_tel" column="user_tel"></property>
+
+        
+        <many-to-one name="user" cascade="save-update" class="User" column="user_id"></many-to-one>
+        <many-to-one name="doctor" cascade="save-update" class="Doctor" column="doctor_id"></many-to-one>
+        <property name="state" column="state"></property>
+        <property name="time" column="time"></property>
+        <property name="number" column="number"></property>
+    </class>
+</hibernate-mapping>

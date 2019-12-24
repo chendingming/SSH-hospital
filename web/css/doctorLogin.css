@@ -1,0 +1,54 @@
+.container{
+	background-image: url(../img/doctor.jpg);
+	width: 1000px;
+	height: 650px;
+	margin: auto;
+}
+body{
+	background-color:#B9DEF0;
+}
+.input{
+	width: 20%;
+  	height: 30px;
+  
+  	font-size: 14px;
+  	line-height: 1.42857143;
+  	color: #555;
+  	background-color: #fff;
+  	background-image: none;
+  	border: 1px solid #ccc;
+  	border-radius: 4px;
+}
+.input-group{
+	text-align: center;
+}
+#logo{
+	margin: 10px auto;
+}
+#logo img{
+	border-radius: 50%;
+}
+.login-button{
+	
+	width: 17%;
+  	height: 40px;
+  	
+	background-color:dodgerblue;
+  	background-image: none;
+  	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.text{
+	color: #3c763d;
+  	background-color: #dff0d8;
+  	border-color: #3c763d;
+}
+.left{
+	width: 70px;
+  	height: 70px;
+  	
+	background-color:whitesmoke;
+  	background-image: none;
+  	border: 1px solid #ccc;
+	border-radius: 50%;
+}

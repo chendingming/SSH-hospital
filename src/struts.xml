@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+
+
+
+	<!-- 指定struts2是否以开发模式运行
+			1.热加载主配置.(不需要重启即可生效)
+			2.提供更多错误信息输出,方便开发时的调试
+	 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	
+
+	
+	<package name="hospital" namespace="/" extends="struts-default" >
+
+
+
+
+		<interceptors>
+			<!-- 注册拦截器 -->
+			<interceptor name="loginInterceptor" class="com.ding.interceptor.LoginIntercptor"></interceptor>
+			<!-- 注册拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="loginInterceptor">
+					<param name="excludeMethods">login,adminLogin,docLogin,adminGetDocCount,adminGetCount</param>
+				</interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 指定包中的默认拦截器栈 -->
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		<!-- 定义全局结果集 -->
+		<global-results>
+			<result name="toLogin" type="redirect" >/login.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<!-- 如果出现java.lang.RuntimeException异常,就将跳转到名为error的结果 -->
+			<exception-mapping result="error" exception="java.lang.RuntimeException"></exception-mapping>
+
+		</global-exception-mappings>
+		
+		<action name="UserAction_*" class="userAction" method="{1}" >
+			<result name="toHome" type="redirect" >/index.jsp</result>
+			<result name="error"  >/login.jsp</result>
+			<result name="toLogin">/login.jsp</result>
+			<result name="logOut" type="redirect">/index.jsp</result>
+		</action>
+
+		<action name="DoctorAction_*" class="doctorAction" method="{1}" >
+			<result name="toList" >/doctorlist.jsp</result>
+			<result name="listd">/doctorlistBykeshi.jsp</result>
+			<result name="doc_login" type="redirect">/doctor/index.jsp</result>
+			<result name="error"  type="redirect">/doctor/login.html</result>
+			<result name="admingetdoc"  >/admin/doctor-list.jsp</result>
+			<result name="success">/admin/success.jsp</result>
+			<result name="lock">/lock.jsp</result>
+			<result name="goToUpdate">/admin/doctor-edit.jsp</result>
+
+		</action>
+
+		<action name="KeshiAction_*" class="keshiAction" method="{1}" >
+			<result name="keshiList">/doctorlist.jsp</result>
+			<result name="adminGetInfo">/admin/keshi-list.jsp</result>
+			<result name="goToUpdate">/admin/keshi-edit.jsp</result>
+		</action>
+
+
+		<action name="NoticeAction_*" class="noticeAction" method="{1}">
+			<result name="toHome" >/index.jsp</result>
+			<result name="toShow">/showNotice.jsp</result>
+			<result name="adminGetList">/admin/article-list.jsp</result>
+			<result name="goToUpdataPage">/admin/article-edit.jsp</result>
+		</action>
+
+		<action name="OrderAction_*" class="orderAction" method="{1}">
+			<result name="toOrder" >/order_save.jsp</result>
+			<result name="toOrderList" type="redirect">OrderAction_myOrder</result>
+			<result name="toMyOrder">/myOrder.jsp</result>
+			<result name="toAddOrder" >/order.jsp</result>
+			<result name="doctorGetByDay">/doctor/taday_order.jsp</result>
+			<result name="toFullPage" type="redirect">/fullPage.jsp</result>
+			<result name="goToSelectTime">/selectTime.jsp</result>
+			<result name="toOrders">/doctor/orders.jsp</result>
+		</action>
+
+		<action name="AdminAction_*" class="adminAction" method="{1}">
+			<result name="adminLogin" type="redirect">/admin/index.jsp</result>
+			<result name="adminList">/admin/admin-list.jsp</result>
+			<result name="toUpdatePage">/admin/admin-add.jsp</result>
+			<result name="lock">/lock.jsp</result>
+			<result name="logout">/login.jsp</result>
+		</action>
+
+		<action name="CommentAction_*" class="commentAction" method="{1}">
+			<result name="docGetCom">/doctor/commentList.jsp</result>
+			<result name="allCom">/admin/commentList.jsp</result>
+		</action>
+
+		<action name="RecordAction_*" class="recordAction" method="{1}">
+			<result name="show">/showRecord.jsp</result>
+		</action>
+
+		<action name="RoleAction_*" class="roleAction" method="{1}">
+			<result name="roleList">/admin/admin-role.jsp</result>
+			<result name="toUpdatePage">/admin/admin-role-update.jsp</result>
+		</action>
+
+		<action name="TestAction_*" class="testAction" method="{1}">
+			<result name="success">/index.jsp</result>
+		</action>
+
+	</package>
+</struts>

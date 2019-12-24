@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ding.entity">
+    <class name="com.ding.entity.User" table="t_user">
+        <id name="user_id" column="user_id">
+            <generator class="native"></generator>
+        </id>
+        <property name="user_name" column="user_name"></property>
+        <property name="user_pw" column="user_pw"></property>
+        <property name="user_realname" column="user_realname"></property>
+        <property name="user_address" column="user_address"></property>
+        <property name="user_tel" column="user_tel"></property>
+        <property name="user_email" column="user_email"></property>
+        <property name="user_del" column="user_del"></property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+							http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!-- 读取db.properties文件 -->
+    <context:property-placeholder location="classpath:db.properties" />
+    <!-- 配置c3p0连接池 -->
+    <bean name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+        <property name="jdbcUrl" value="${jdbc.jdbcUrl}" ></property>
+        <property name="driverClass" value="${jdbc.driverClass}" ></property>
+        <property name="user" value="${jdbc.user}" ></property>
+        <property name="password" value="${jdbc.password}" ></property>
+    </bean>
+
+
+    <bean name="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" >
+        <property name="dataSource" ref="dataSource" ></property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect" >org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql" >true</prop>
+                <prop key="hibernate.format_sql" >true</prop>
+                <prop key="hibernate.hbm2ddl.auto" >update</prop>
+            </props>
+        </property>
+        <!-- 引入orm元数据,指定orm元数据所在的包路径,spring会自动读取包中的所有配置 -->
+        <property name="mappingDirectoryLocations" value="classpath:com/ding/entity" ></property>
+    </bean>
+
+    <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+
+
+
+
+    <!-- Dao-->
+    <bean name="userDao" class="com.ding.dao.impl.UserDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    <bean name="keshiDao" class="com.ding.dao.impl.KeshiDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    <bean name="doctorDao" class="com.ding.dao.impl.DoctorDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    <bean name="noticeDao" class="com.ding.dao.impl.NoticeDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    <bean name="orderDao" class="com.ding.dao.impl.OrderDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+
+    <bean name="adminDao" class="com.ding.dao.impl.AdminDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory" ></property>
+    </bean>
+    <bean name="commentDao" class="com.ding.dao.impl.CommentDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <bean name="recordDao" class="com.ding.dao.impl.RecordDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <bean name="roleDao" class="com.ding.dao.impl.RoleDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+
+
+    <!-- Service-->
+
+    <bean name="userService" class="com.ding.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>
+    </bean>
+
+    <bean name="keshiService" class="com.ding.service.impl.KeshiServiceImpl">
+        <property name="keshiDao" ref="keshiDao"></property>
+    </bean>
+
+    <bean name="doctorService" class="com.ding.service.impl.DoctorServiceImpl">
+        <property name="doctorDao" ref="doctorDao"></property>
+        <property name="keshiDao" ref="keshiDao"></property>
+    </bean>
+
+    <bean name="noticeService" class="com.ding.service.impl.NoticeServiceImpl">
+        <property name="noticeDao" ref="noticeDao"></property>
+    </bean>
+
+    <bean name="orderService" class="com.ding.service.impl.OrderServiceImpl">
+        <property name="orderDao" ref="orderDao"></property>
+    </bean>
+    <bean name="adminService" class="com.ding.service.impl.AdminServiceImpl">
+        <property name="adminDao" ref="adminDao"></property>
+    </bean>
+    <bean name="commentService" class="com.ding.service.impl.CommentServiceImpl">
+        <property name="commentDao" ref="commentDao"></property>
+    </bean>
+
+    <bean name="recordService" class="com.ding.service.impl.RecordServiceImpl">
+        <property name="recordDao" ref="recordDao"></property>
+    </bean>
+
+    <bean name="roleService" class="com.ding.service.impl.RoleServiceImpl">
+        <property name="roleDao" ref="roleDao"></property>
+    </bean>
+
+
+
+
+    <!-- action
+
+
+     -->
+    <bean name="userAction" class="com.ding.action.UserAction" scope="prototype">
+        <property name="us" ref="userService"></property>
+    </bean>
+
+    <bean name="doctorAction" class="com.ding.action.DoctorAction" scope="prototype">
+        <property name="ds" ref="doctorService"></property>
+        <property name="ks" ref="keshiService"></property>
+    </bean>
+
+    <bean name="noticeAction" class="com.ding.action.NoticeAction" scope="prototype">
+        <property name="ns" ref="noticeService"></property>
+    </bean>
+
+    <bean name="orderAction" class="com.ding.action.OrderAction" scope="prototype">
+        <property name="os" ref="orderService"></property>
+        <property name="us" ref="userService"></property>
+        <property name="doctorService" ref="doctorService"></property>
+    </bean>
+
+    <bean name="keshiAction" class="com.ding.action.KeshiAction" scope="prototype">
+        <property name="ks" ref="keshiService"></property>
+    </bean>
+    <bean name="adminAction" class="com.ding.action.AdminAction" scope="prototype">
+        <property name="as" ref="adminService"></property>
+        <property name="roleService" ref="roleService"></property>
+    </bean>
+    <bean name="commentAction" class="com.ding.action.CommentAction" scope="prototype">
+        <property name="commentService" ref="commentService"></property>
+        <property name="doctorService" ref="doctorService"></property>
+    </bean>
+
+    <bean name="recordAction" class="com.ding.action.RecordAction" scope="prototype">
+        <property name="recordService" ref="recordService"></property>
+        <property name="orderService" ref="orderService"></property>
+    </bean>
+
+    <bean name="roleAction" class="com.ding.action.RoleAction" scope="prototype">
+        <property name="roleService" ref="roleService"></property>
+
+    </bean>
+
+    <bean name="testAction" class="com.ding.action.TestAction" scope="prototype"></bean>
+
+</beans>

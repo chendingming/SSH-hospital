@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.ding.entity">
+    <!--
+    private int id;
+    private int yiyuanId;
+    private int keshiId;
+    private String doctor_name;
+    private String doctor_pw;
+    private String doctor_sex;
+    private int doctor_age;
+    private String shanchang;
+    private String leixing;
+    private String image;
+    private int doctor_del;
+    -->
+    <class name="com.ding.entity.Doctor" table="t_doctor">
+        <id name="id" column="id">
+            <generator class="native"></generator>
+        </id>
+        <property name="yiyuanId" column="yiyuanId"></property>
+        <property name="doctor_name" column="doctor_name"></property>
+        <property name="doctor_pw" column="doctor_pw"></property>
+        <property name="doctor_sex" column="doctor_sex"></property>
+        <property name="doctor_age" column="doctor_age"></property>
+        <property name="shanchang" column="shanchang"></property>
+        <property name="leixing" column="leixing"></property>
+        <property name="image" column="image"></property>
+        <property name="doctor_del" column="doctor_del"></property>
+
+        <many-to-one name="keshi" class="com.ding.entity.Keshi" column="keshiId"></many-to-one>
+    </class>
+</hibernate-mapping>

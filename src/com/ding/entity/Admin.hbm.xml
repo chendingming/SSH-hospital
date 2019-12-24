@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ding.entity.Admin" table="t_admin">
+        <id name="userId" column="userId">
+            <generator class="native"></generator>
+        </id>
+        <property name="userName" column="userName"></property>
+        <property name="userPw" column="userPw"></property>
+        <property name="state" column="state"></property>
+        <many-to-one name="role" class="com.ding.entity.Role" column="role_id"></many-to-one>
+    </class>
+</hibernate-mapping>

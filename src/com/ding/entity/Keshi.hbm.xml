@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!--
+private int keshi_id;
+    private String keshi_name;
+    private String keshi_del;
+
+-->
+<hibernate-mapping package="com.ding.entity">
+    <class name="com.ding.entity.Keshi" table="t_keshi">
+        <id name="keshi_id" column="keshi_id">
+            <generator class="native"></generator>
+        </id>
+        <property name="keshi_name" column="keshi_name"></property>
+        <property name="keshi_phone" column="keshi_phone"></property>
+        <property name="keshi_address" column="keshi_address"></property>
+        <property name="keshi_doctorNum" column="keshi_doctorNum"></property>
+        <property name="keshi_del" column="keshi_del"></property>
+    </class>
+</hibernate-mapping>
